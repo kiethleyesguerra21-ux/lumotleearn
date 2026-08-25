@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>User Login</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body class="login-body">
+
+
+<div class="login-container">
+
+    <div class="login-icon">
+        🎓
+    </div>
+
+    <h1>
+        Student Portal
+    </h1>
+
+    <p>
+        Login using the User ID and Username
+        given by the admin.
+    </p>
+
+
+    {% if error %}
+
+    <div class="error">
+        {{ error }}
+    </div>
+
+    {% endif %}
+
+
+    <form method="POST">
+
+        <label>
+            User ID
+        </label>
+
+        <input
+            type="text"
+            name="user_id"
+            placeholder="Enter your User ID"
+            required
+        >
+
+
+        <label>
+            Username
+        </label>
+
+        <input
+            type="text"
+            name="username"
+            placeholder="Enter your Username"
+            required
+        >
+
+
+        <button type="submit">
+            Login
+        </button>
+
+    </form>
+
+
+    <a href="{{ url_for('admin_login') }}"
+       class="admin-login-link">
+        Admin Login
+    </a>
+
+</div>
+
+
+</body>
+
+</html>

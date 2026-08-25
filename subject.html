@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {{ subject["subject_name"] }}
+    </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+
+<nav class="navbar">
+
+    <div class="logo">
+        STUDENT PORTAL
+    </div>
+
+    <div class="nav-right">
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+        <span>|</span>
+
+        <a href="{{ url_for('logout') }}">
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+<main class="page-container">
+
+
+    <a href="{{ url_for('dashboard') }}"
+       class="back-link">
+
+        ← Back to Subjects
+
+    </a>
+
+
+    <!-- =================================
+         SUBJECT HEADER
+    ================================== -->
+
+    <div class="subject-title">
+
+        <span>
+            {{ subject["subject_code"] }}
+        </span>
+
+        <h1>
+            {{ subject["subject_name"] }}
+        </h1>
+
+    </div>
+
+
+    <!-- =================================
+         MODULES
+    ================================== -->
+
+    <h2 class="section-heading">
+        📖 Modules
+    </h2>
+
+
+    <div class="content-list">
+
+        {% if modules %}
+
+            {% for module in modules %}
+
+            <div class="content-item">
+
+                <div class="content-number">
+                    {{ loop.index }}
+                </div>
+
+                <div>
+
+                    <h3>
+                        {{ module["module_title"] }}
+                    </h3>
+
+                    <p>
+                        {{ module["description"] }}
+                    </p>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="empty-box">
+                No modules available.
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- =================================
+         ACTIVITIES
+    ================================== -->
+
+    <h2 class="section-heading">
+        📝 Activities
+    </h2>
+
+
+    <div class="content-list">
+
+        {% if activities %}
+
+            {% for activity in activities %}
+
+            <div class="content-item">
+
+                <div class="content-number">
+                    {{ loop.index }}
+                </div>
+
+                <div>
+
+                    <h3>
+                        {{ activity["activity_title"] }}
+                    </h3>
+
+                    <p>
+                        {{ activity["description"] }}
+                    </p>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="empty-box">
+                No activities available.
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+</main>
+
+
+</body>
+
+</html>

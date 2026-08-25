@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Student Portal</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+
+<!-- =========================================
+     NAVBAR
+========================================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        STUDENT PORTAL
+    </div>
+
+    <div class="nav-right">
+
+        <a href="{{ url_for('profile') }}">
+            Profile
+        </a>
+
+        <span>|</span>
+
+        <a href="{{ url_for('logout') }}">
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- =========================================
+     MAIN CONTAINER
+========================================= -->
+
+<main class="main-container">
+
+
+    <!-- =====================================
+         WELCOME
+    ====================================== -->
+
+    <div class="welcome">
+
+        <h1>
+            Welcome, {{ user["username"] }}!
+        </h1>
+
+        <p>
+            Here you can view your profile, grades,
+            subjects, modules, and activities.
+        </p>
+
+    </div>
+
+
+    <!-- =====================================
+         THREE MAIN CARDS
+    ====================================== -->
+
+    <div class="main-cards">
+
+
+        <!-- PROFILE -->
+
+        <a href="{{ url_for('profile') }}"
+           class="main-card">
+
+            <div class="card-icon">
+                👤
+            </div>
+
+            <h2>
+                PROFILE
+            </h2>
+
+            <p>
+                View Profile
+            </p>
+
+        </a>
+
+
+        <!-- GRADES -->
+
+        <a href="{{ url_for('grades') }}"
+           class="main-card">
+
+            <div class="card-icon">
+                📊
+            </div>
+
+            <h2>
+                GRADES
+            </h2>
+
+            <p>
+                View Grades
+            </p>
+
+        </a>
+
+
+        <!-- SUBJECTS -->
+
+        <div class="main-card">
+
+            <div class="card-icon">
+                📚
+            </div>
+
+            <h2>
+                SUBJECTS
+            </h2>
+
+            <p>
+                View Subjects
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =====================================
+         MY SUBJECTS
+    ====================================== -->
+
+    <section class="subjects-section">
+
+        <h2 class="section-title">
+            MY SUBJECTS
+        </h2>
+
+
+        <div class="subject-grid">
+
+
+            {% for subject in subjects %}
+
+            <div class="subject-card">
+
+                <div class="subject-code">
+                    {{ subject["subject_code"] }}
+                </div>
+
+                <h3>
+                    {{ subject["subject_name"] }}
+                </h3>
+
+                <a
+                    href="{{ url_for('subject',
+                                     subject_id=subject['id']) }}"
+                    class="view-subject"
+                >
+                    View Subject
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>User Information</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Welcome!</h1>
+
+        <div class="user-info">
+
+            <p>
+                <strong>User ID:</strong>
+                {{ user_id }}
+            </p>
+
+            <p>
+                <strong>Name:</strong>
+                {{ username }}
+            </p>
+
+        </div>
+
+        <a href="/">
+            <button>Go Back</button>
+        </a>
+
+    </div>
+
+</body>
+
+</html>

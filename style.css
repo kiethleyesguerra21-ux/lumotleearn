@@ -1,0 +1,912 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap');
+
+:root {
+    /* Color tokens */
+    --paper:        #F5F1E6;
+    --paper-white:  #FFFDF8;
+    --ink:          #1E3A5F;
+    --ink-deep:     #142A45;
+    --rule-red:     #C8443C;
+    --graphite:     #3A3A38;
+    --graphite-60:  rgba(58, 58, 56, 0.6);
+    --gold-seal:    #C9A227;
+    --gold-seal-dk: #A5810F;
+    --line:         rgba(30, 58, 95, 0.14);
+    --shadow:       rgba(30, 58, 95, 0.10);
+
+    /* Type */
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body:    'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono:    'JetBrains Mono', 'Courier New', monospace;
+
+    --radius: 10px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: var(--font-body);
+    color: var(--graphite);
+    background: linear-gradient(160deg, #3C6B44 0%, #24462C 45%, #142B1A 100%);
+    background-attachment: fixed;
+    animation: page-in 0.5s ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.001ms !important;
+        transition-duration: 0.001ms !important;
+    }
+}
+
+@keyframes page-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+h1, h2, h3 {
+    font-family: var(--font-display);
+    color: var(--ink-deep);
+    margin: 0 0 0.4em;
+    letter-spacing: -0.01em;
+}
+
+p {
+    line-height: 1.6;
+    color: var(--graphite-60);
+}
+
+a {
+    color: var(--ink);
+    text-decoration: none;
+}
+
+::selection {
+    background: var(--gold-seal);
+    color: var(--ink-deep);
+}
+
+:focus-visible {
+    outline: 2px solid var(--rule-red);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+/* ============================================================
+   FORM CONTROLS (shared: index, login, admin_login, admin)
+   ============================================================ */
+
+label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin: 1.1rem 0 0.4rem;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 0.75rem 0.9rem;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--graphite);
+    background: var(--paper-white);
+    border: 1px solid var(--line);
+    border-bottom: 2px solid var(--ink);
+    border-radius: 6px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input[type="text"]::placeholder,
+input[type="password"]::placeholder {
+    color: rgba(58, 58, 56, 0.35);
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: var(--rule-red);
+    box-shadow: 0 0 0 3px rgba(200, 68, 60, 0.12);
+}
+
+button,
+.logout-btn,
+.delete-btn,
+.view-subject,
+.admin-login-link {
+    cursor: pointer;
+}
+
+button[type="submit"],
+.user-form button {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 0.8rem 1.6rem;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--paper-white);
+    background: var(--ink);
+    border: none;
+    border-radius: 6px;
+    transition: background 0.2s ease, transform 0.15s ease;
+}
+
+button[type="submit"]:hover,
+.user-form button:hover {
+    background: var(--ink-deep);
+    transform: translateY(-1px);
+}
+
+button[type="submit"]:active,
+.user-form button:active {
+    transform: translateY(0);
+}
+
+.clear-btn {
+    display: inline-block;
+    margin-top: 1.5rem;
+    margin-left: 0.6rem;
+    padding: 0.8rem 1.6rem;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--ink);
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.clear-btn:hover {
+    border-color: var(--ink);
+    background: rgba(30, 58, 95, 0.05);
+}
+
+.error {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.88rem;
+    color: #7A2320;
+    background: rgba(200, 68, 60, 0.09);
+    border-left: 3px solid var(--rule-red);
+    border-radius: 4px;
+}
+
+/* ============================================================
+   REGISTRATION / WELCOME / GENERIC .container
+   (index.html, welcome.html)
+   ============================================================ */
+
+.container {
+    max-width: 460px;
+    margin: 8vh auto;
+    padding: 2.5rem 2.25rem;
+    background: var(--paper-white);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--rule-red);
+    border-radius: var(--radius);
+    box-shadow: 0 12px 32px -12px var(--shadow);
+}
+
+.container h1 {
+    font-size: 1.7rem;
+}
+
+.user-info {
+    margin: 1.5rem 0;
+    padding: 1.1rem 1.25rem;
+    background: var(--paper);
+    border-radius: 6px;
+}
+
+.user-info p {
+    margin: 0.4rem 0;
+    color: var(--graphite);
+}
+
+.user-info strong {
+    color: var(--ink);
+    font-family: var(--font-mono);
+    font-weight: 600;
+    margin-right: 0.4em;
+}
+
+.container > a {
+    display: inline-block;
+    margin-top: 1.5rem;
+    text-decoration: none;
+}
+
+.container button {
+    padding: 0.75rem 1.5rem;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--paper-white);
+    background: var(--ink);
+    border: none;
+    border-radius: 6px;
+}
+
+/* ============================================================
+   LOGIN (login.html)
+   ============================================================ */
+
+.login-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 420px;
+    margin: 6vh auto;
+    padding: 2.75rem 2.25rem 2.25rem;
+    text-align: center;
+    background: var(--paper-white);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: 0 18px 40px -16px var(--shadow);
+    position: relative;
+}
+
+.login-container::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 46px;
+    height: 4px;
+    border-radius: 0 0 4px 4px;
+    background: var(--rule-red);
+}
+
+.login-icon {
+    width: 68px;
+    height: 68px;
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 50%;
+}
+
+.login-container h1 {
+    font-size: 1.6rem;
+    margin-bottom: 0.3rem;
+}
+
+.login-container p {
+    font-size: 0.88rem;
+    margin-bottom: 0.5rem;
+}
+
+.login-container form {
+    text-align: left;
+    margin-top: 1rem;
+}
+
+.login-container button[type="submit"] {
+    width: 100%;
+    margin-top: 1.75rem;
+}
+
+.admin-link,
+.admin-login-link {
+    display: inline-block;
+    margin-top: 1.5rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--graphite-60);
+    border-bottom: 1px dashed var(--line);
+    padding-bottom: 2px;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.admin-link a {
+    color: inherit;
+}
+
+.admin-login-link:hover,
+.admin-link a:hover {
+    color: var(--rule-red);
+    border-color: var(--rule-red);
+}
+
+/* ============================================================
+   NAVBAR (dashboard, grades, profile, subject)
+   ============================================================ */
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.1rem 2rem;
+    background: var(--ink-deep);
+    box-shadow: 0 2px 0 var(--rule-red);
+}
+
+.navbar .logo {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.15rem;
+    letter-spacing: 0.06em;
+    color: var(--paper-white);
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    font-size: 0.88rem;
+}
+
+.nav-right a {
+    color: rgba(245, 241, 230, 0.82);
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.nav-right a:hover {
+    color: var(--gold-seal);
+}
+
+.nav-right span {
+    color: rgba(245, 241, 230, 0.3);
+}
+
+/* ============================================================
+   DASHBOARD (dashboard.html)
+   ============================================================ */
+
+.main-container {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem 4rem;
+}
+
+.welcome h1 {
+    font-size: 1.9rem;
+}
+
+.welcome p {
+    max-width: 560px;
+}
+
+.main-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.1rem;
+    margin: 2rem 0 3rem;
+}
+
+.main-card {
+    display: block;
+    padding: 1.75rem 1.25rem;
+    text-align: center;
+    background: var(--paper-white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: 0 8px 20px -14px var(--shadow);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+a.main-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--gold-seal);
+    box-shadow: 0 14px 28px -14px var(--shadow);
+}
+
+.card-icon {
+    font-size: 1.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.main-card h2 {
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.2rem;
+}
+
+.main-card p {
+    font-size: 0.82rem;
+    margin: 0;
+}
+
+.section-title {
+    font-size: 1.05rem;
+    letter-spacing: 0.08em;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid var(--ink);
+    display: inline-block;
+    margin-bottom: 1.4rem;
+}
+
+.subject-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+}
+
+.subject-card {
+    padding: 1.4rem;
+    background: var(--paper-white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: 0 8px 20px -14px var(--shadow);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.subject-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 26px -14px var(--shadow);
+}
+
+.subject-code {
+    display: inline-block;
+    padding: 0.2rem 0.55rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    background: rgba(30, 58, 95, 0.08);
+    border-radius: 4px;
+    margin-bottom: 0.6rem;
+}
+
+.subject-card h3 {
+    font-size: 1.05rem;
+    margin-bottom: 1rem;
+}
+
+.view-subject {
+    display: inline-block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--rule-red);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease;
+}
+
+.view-subject:hover {
+    border-color: var(--rule-red);
+}
+
+/* ============================================================
+   PAGE CONTAINER (grades, profile, subject)
+   ============================================================ */
+
+.page-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2.25rem 2rem 4rem;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--graphite-60);
+    transition: color 0.2s ease;
+}
+
+.back-link:hover {
+    color: var(--rule-red);
+}
+
+.page-container h1 {
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+}
+
+/* ============================================================
+   GRADES (grades.html) — ledger table + stamp-style grade
+   ============================================================ */
+
+.grades-container {
+    background: var(--paper-white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 8px 24px -16px var(--shadow);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead tr {
+    background: var(--ink-deep);
+}
+
+th {
+    padding: 0.85rem 1.25rem;
+    text-align: left;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(245, 241, 230, 0.85);
+}
+
+td {
+    padding: 0.9rem 1.25rem;
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--line);
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+tbody tr:hover {
+    background: rgba(30, 58, 95, 0.035);
+}
+
+td.grade {
+    width: 90px;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--gold-seal-dk);
+}
+
+/* ============================================================
+   EMPTY STATES (grades, subject)
+   ============================================================ */
+
+.empty-box {
+    padding: 3rem 2rem;
+    text-align: center;
+    background: var(--paper-white);
+    border: 1px dashed var(--line);
+    border-radius: var(--radius);
+}
+
+.empty-box > div:first-child {
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.empty-box h2 {
+    font-size: 1.1rem;
+    margin-bottom: 0.4rem;
+}
+
+.empty-box p {
+    max-width: 340px;
+    margin: 0 auto;
+    font-size: 0.88rem;
+}
+
+/* ============================================================
+   PROFILE (profile.html)
+   ============================================================ */
+
+.profile-page {
+    text-align: center;
+    padding: 2.5rem 2rem;
+    background: var(--paper-white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: 0 8px 24px -16px var(--shadow);
+}
+
+.profile-avatar {
+    width: 84px;
+    height: 84px;
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--paper-white);
+    background: var(--ink);
+    border-radius: 50%;
+    border: 3px solid var(--gold-seal);
+}
+
+.profile-page h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.1rem;
+}
+
+.profile-page > p {
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--rule-red);
+    font-weight: 600;
+    margin-bottom: 2rem;
+}
+
+.profile-information {
+    max-width: 420px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.profile-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.profile-row:last-child {
+    border-bottom: none;
+}
+
+.profile-row span {
+    font-size: 0.8rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--graphite-60);
+}
+
+.profile-row strong {
+    font-family: var(--font-mono);
+    font-size: 0.92rem;
+    color: var(--ink-deep);
+}
+
+/* ============================================================
+   SUBJECT DETAIL (subject.html)
+   ============================================================ */
+
+.subject-title {
+    margin-bottom: 2rem;
+}
+
+.subject-title span {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--ink);
+    background: rgba(30, 58, 95, 0.08);
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+}
+
+.subject-title h1 {
+    font-size: 1.6rem;
+    margin: 0.3rem 0 0;
+}
+
+.section-heading {
+    font-size: 1.05rem;
+    margin: 2rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--ink);
+    display: inline-block;
+}
+
+.content-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.content-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1.1rem 1.25rem;
+    background: var(--paper-white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: 0 6px 16px -12px var(--shadow);
+}
+
+.content-number {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--paper-white);
+    background: var(--ink);
+    border-radius: 50%;
+}
+
+.content-item h3 {
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+}
+
+.content-item p {
+    font-size: 0.86rem;
+    margin: 0;
+}
+
+/* ============================================================
+   ADMIN PANEL (admin.html)
+   ============================================================ */
+
+.admin-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem 4rem;
+}
+
+.admin-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 2px solid var(--ink);
+}
+
+.admin-header h1 {
+    font-size: 1.6rem;
+    margin-bottom: 0.2rem;
+}
+
+.admin-header p {
+    margin: 0;
+    font-size: 0.88rem;
+}
+
+.logout-btn {
+    padding: 0.55rem 1.1rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--ink);
+    background: var(--paper-white);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.logout-btn:hover {
+    border-color: var(--rule-red);
+    color: var(--rule-red);
+}
+
+.card {
+    padding: 1.75rem;
+    background: var(--paper-white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: 0 8px 24px -16px var(--shadow);
+    margin-bottom: 1.5rem;
+}
+
+.card h2 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.user-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 0 1rem;
+    align-items: end;
+}
+
+.user-form label {
+    margin-top: 0;
+}
+
+.user-form button {
+    margin-top: 0;
+    height: fit-content;
+    white-space: nowrap;
+}
+
+.admin-container table {
+    margin-top: 0.5rem;
+}
+
+.admin-container thead tr {
+    background: var(--paper);
+}
+
+.admin-container th {
+    color: var(--ink);
+}
+
+.delete-btn {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--rule-red);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease;
+}
+
+.delete-btn:hover {
+    border-color: var(--rule-red);
+}
+
+.no-users {
+    padding: 1.5rem;
+    text-align: center;
+    font-size: 0.88rem;
+    background: var(--paper);
+    border-radius: 6px;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 720px) {
+    .navbar {
+        padding: 1rem 1.25rem;
+    }
+
+    .main-container,
+    .page-container,
+    .admin-container {
+        padding: 1.75rem 1.25rem 3rem;
+    }
+
+    .main-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .user-form {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-header {
+        flex-direction: column;
+        gap: 0.9rem;
+    }
+
+    .profile-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.2rem;
+    }
+
+    th, td {
+        padding: 0.7rem 0.85rem;
+        font-size: 0.85rem;
+    }
+
+    .content-item {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .container,
+    .login-container {
+        margin: 4vh 1rem;
+        padding: 2rem 1.5rem;
+    }
+}

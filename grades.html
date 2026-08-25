@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>My Grades</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+
+<nav class="navbar">
+
+    <div class="logo">
+        STUDENT PORTAL
+    </div>
+
+    <div class="nav-right">
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+        <span>|</span>
+
+        <a href="{{ url_for('logout') }}">
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+<main class="page-container">
+
+    <a href="{{ url_for('dashboard') }}"
+       class="back-link">
+        ← Back to Dashboard
+    </a>
+
+
+    <h1>
+        📊 My Grades
+    </h1>
+
+
+    {% if grades %}
+
+    <div class="grades-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Subject Code
+                    </th>
+
+                    <th>
+                        Subject
+                    </th>
+
+                    <th>
+                        Grade
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for grade in grades %}
+
+                <tr>
+
+                    <td>
+                        {{ grade["subject_code"] }}
+                    </td>
+
+                    <td>
+                        {{ grade["subject_name"] }}
+                    </td>
+
+                    <td class="grade">
+                        {{ grade["grade"] }}
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-box">
+
+        <div>
+            📊
+        </div>
+
+        <h2>
+            No Grades Yet
+        </h2>
+
+        <p>
+            Your grades will appear here
+            once they are posted by the admin.
+        </p>
+
+    </div>
+
+    {% endif %}
+
+
+</main>
+
+
+</body>
+
+</html>
